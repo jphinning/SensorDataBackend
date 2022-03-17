@@ -6,15 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
 require("reflect-metadata");
 const typeorm_1 = require("typeorm");
-const database_1 = __importDefault(require("./config/database"));
 const PORT = process.env.PORT || 4000;
-(0, typeorm_1.createConnection)(database_1.default)
+(0, typeorm_1.createConnection)()
     .then((_connection) => {
     app_1.default.listen(PORT, () => {
         console.log(`Server running on PORT ${PORT}`);
     });
 })
-    .catch(err => {
+    .catch((err) => {
     console.error(err);
 });
 //# sourceMappingURL=server.js.map

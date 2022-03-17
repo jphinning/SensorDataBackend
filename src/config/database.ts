@@ -1,16 +1,25 @@
-import { ConnectionOptions } from "typeorm";
+// import { ConnectionOptions } from "typeorm";
+// import { envConfig } from "./envConfig";
 
-const config: ConnectionOptions = {
-  type: "postgres",
-  //url: "postgres://postgres:postgres@localhost:5432/data",
-  host: process.env.POSTGRES_HOST || 'localhost',
-  port: Number(process.env.POSTGRES_PORT) || 5432,
-  username: process.env.POSTGRES_USER || 'postgres',
-  password: process.env.POSTGRES_PASSWORD || 'postgres',
-  database: process.env.POSTGRES_DB || 'data',
-  entities: ["build/entities/*.js"],
-  migrations: ["build/migrations/*.js"],
-  synchronize: false,
-};
+// const {
+//   POSTGRES_DB,
+//   POSTGRES_HOST,
+//   POSTGRES_PASSWORD,
+//   POSTGRES_PORT,
+//   POSTGRES_USER,
+// } = envConfig;
 
-export default config;
+// const config: ConnectionOptions = {
+//   type: "postgres",
+//   //url: "postgres://postgres:postgres@localhost:5432/data",
+//   host: POSTGRES_HOST,
+//   port: Number(POSTGRES_PORT),
+//   username: POSTGRES_USER,
+//   password: POSTGRES_PASSWORD,
+//   database: POSTGRES_DB,
+//   entities: ["../entities/*.ts"],
+//   migrations: ["../migrations/*.ts"],
+//   synchronize: false,
+// };
+
+// export default config;
