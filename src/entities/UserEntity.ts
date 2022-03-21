@@ -4,14 +4,18 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
+
+import bcrypt from "bcrypt";
 
 @Entity()
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ unique: true })
   email!: string;
 
   @Column()
@@ -22,4 +26,10 @@ export class UserEntity {
 
   @UpdateDateColumn()
   updateDateColumn!: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashPassword() {
+    this.password = bcrypt.hashSync(this.password, 10);
+  }
 }

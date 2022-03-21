@@ -1,19 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const PasswordHasher_1 = require("../utils/PasswordHasher");
 const UserController_1 = require("../controllers/UserController");
 const registerRouter = (0, express_1.Router)();
 registerRouter.post("/", async (req, res) => {
     try {
-        const { email, password } = req.body;
-        console.log(password);
-        const passwordHash = await new PasswordHasher_1.PasswordHasher().encrypt(password);
         const controller = new UserController_1.UserController();
-        const response = await controller.createContact({
-            email: email,
-            password: passwordHash,
-        });
+        const userExists = await controller.findOne(req.body);
+        if (userExists) {
+            return res.status(409).json({ message: "Email alreay in use" });
+        }
+        if (!req.body.email || !req.body.password) {
+            return res.status(400).json({ message: "Unable to create user" });
+        }
+        const response = await controller.createUser(req.body);
         return res.send(response);
     }
     catch (error) {

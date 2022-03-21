@@ -1,10 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
-const UserRepository_1 = require("../repositories/UserRepository");
+const typeorm_1 = require("typeorm");
+const UserEntity_1 = require("../entities/UserEntity");
 class UserController {
-    async createContact(body) {
-        return await new UserRepository_1.UserRepositoty().createUser(body);
+    async createUser(body) {
+        const repository = (0, typeorm_1.getRepository)(UserEntity_1.UserEntity);
+        const user = repository.create(body);
+        return await repository.save(user);
+    }
+    async findOne(body) {
+        const repository = (0, typeorm_1.getRepository)(UserEntity_1.UserEntity);
+        const { email } = body;
+        return await repository.findOne({ where: { email } });
     }
 }
 exports.UserController = UserController;

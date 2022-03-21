@@ -1,8 +1,24 @@
+import { getRepository } from "typeorm";
+
 import { UserEntity } from "../entities/UserEntity";
-import { UserRepositoty, IUserPayload } from "../repositories/UserRepository";
+
+interface IUserPayload {
+  email: string;
+  password: string;
+}
 
 export class UserController {
-  public async createContact(body: IUserPayload): Promise<UserEntity> {
-    return await new UserRepositoty().createUser(body);
+  public async createUser(body: IUserPayload): Promise<UserEntity> {
+    const repository = getRepository(UserEntity);
+
+    const user = repository.create(body);
+    return await repository.save(user);
+  }
+
+  public async findOne(body: IUserPayload): Promise<UserEntity | undefined> {
+    const repository = getRepository(UserEntity);
+    const { email } = body;
+
+    return await repository.findOne({ where: { email } });
   }
 }
