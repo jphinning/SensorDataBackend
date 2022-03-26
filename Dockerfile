@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY --chown=node:node . .
 
-RUN npm ci && npm run build
+RUN npm ci --only=production && npm run build
 
 ENV NODE_ENV=production
 
