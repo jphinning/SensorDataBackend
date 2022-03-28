@@ -7,6 +7,11 @@ interface ISensorPayload {
   data: string;
 }
 
+interface IReqProps {
+  limit: string;
+  order: "ASC" | "DESC";
+}
+
 export class SensorController {
   public async createData(req: Request, res: Response) {
     const repository = getRepository(SensorEntity);
@@ -19,9 +24,17 @@ export class SensorController {
     return res.json(sensorData);
   }
 
-  public async getAllData(_req: Request, res: Response) {
+  public async getAllData(req: Request, res: Response) {
     const repository = getRepository(SensorEntity);
-    const users = await repository.find();
+
+    const { limit, order } = req.query as unknown as IReqProps;
+
+    const users = await repository.find({
+      order: {
+        id: order,
+      },
+      take: parseInt(limit),
+    });
 
     return res.json(users);
   }
