@@ -5,13 +5,13 @@ services:
   db:
     image: postgres:14
     environment:
-      - POSTGRES_DB=data
+      - POSTGRES_DB=test
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.test
     volumes:
       - ./src:/app/src
     ports:
@@ -19,7 +19,7 @@ services:
     depends_on:
       - db
     environment:
-      - POSTGRES_DB=data
+      - POSTGRES_DB=test
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_HOST=db

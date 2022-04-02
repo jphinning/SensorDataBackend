@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import { UserEntity } from "../entities/UserEntity";
 
-interface IAuthPayload {
+export interface IAuthPayload {
   email: string;
   password: string;
 }
