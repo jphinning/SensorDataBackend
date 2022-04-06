@@ -6,8 +6,6 @@ COPY --chown=node:node . .
 
 RUN npm ci
 
-ENV NODE_ENV=development
-
 USER node
 
 CMD [ "npm", "run", "dev"]

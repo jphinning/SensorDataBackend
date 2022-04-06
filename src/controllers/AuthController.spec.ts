@@ -1,5 +1,9 @@
-import { createConnection } from "typeorm";
-import { AuthController, IAuthPayload } from "./AuthController";
+import { Connection } from "typeorm";
+import request from "supertest";
+
+import app from "../app";
+import { createTestingConnection } from "../utils/dbConnection";
+import { IAuthPayload } from "./AuthController";
 
 describe("Register User test", () => {
   const payload: IAuthPayload = {
@@ -7,16 +11,22 @@ describe("Register User test", () => {
     password: "test",
   };
 
+  let connection: Connection;
+
   beforeAll(async () => {
     try {
-      await createConnection();
+      connection = await createTestingConnection();
+      console.log("Connection ok");
     } catch (error) {
       console.log(error);
     }
-  });
+  }, 10000);
 
-  it("shouldn't be able to auth an unexisting user", async () => {
-    const response = await new AuthController().createToken(payload);
-    expect(response).toStrictEqual({ message: "Wrong user" });
-  });
+  afterAll(() => connection.close());
+
+  it("should be able to create a new user", async () => {
+    const res = await request(app).post("/register").send(payload).expect(200);
+    await request(app).post("/login").send(payload).expect(200);
+    console.log(res.body);
+  }, 10000);
 });
