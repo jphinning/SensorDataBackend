@@ -2,17 +2,16 @@
 import app from "./app";
 
 // TypeORM
-import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createServerConnection } from "./utils/dbConnection";
 
 const PORT = process.env.PORT || 4000;
 
-createConnection()
-  .then((_connection) => {
-    app.listen(PORT, () => {
-      console.log(`Server running on PORT ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error(err);
+const start = async (): Promise<void> => {
+  await createServerConnection();
+
+  app.listen(PORT, () => {
+    console.log(`Server running on: ${PORT}`);
   });
+};
+
+if (process.env.NODE_ENV !== "test") start();

@@ -21,6 +21,7 @@ registerRouter.post("/", async (req, res) => {
     const response = await controller.createUser(req.body);
     return res.send(response);
   } catch (error) {
+    console.log(error);
     return res.send({ error: error });
   }
 });

@@ -4,9 +4,7 @@ WORKDIR /app
 
 COPY --chown=node:node . .
 
-RUN npm ci && npm run build
-
-ENV NODE_ENV=development
+RUN npm ci
 
 USER node
 
