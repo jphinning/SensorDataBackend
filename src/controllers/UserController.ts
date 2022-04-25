@@ -3,6 +3,7 @@ import { getRepository } from "typeorm";
 import { UserEntity } from "../entities/UserEntity";
 
 interface IUserPayload {
+  name: string;
   email: string;
   password: string;
 }

@@ -1,5 +1,5 @@
 # docker-compose.yml
-version: '3.9' 
+version: '3.9'
 
 services:
   postgres:
@@ -7,13 +7,12 @@ services:
     ports:
       - '5432:5432'
     volumes:
-        - ./pg-init-scripts:/docker-entrypoint-initdb.d
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_MULTIPLE_DATABASES: app,app_test
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     restart: unless-stopped
-
   # pgadmin:
   #   image: dpage/pgadmin4
   #   depends_on:
@@ -24,18 +23,18 @@ services:
   #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
   #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
   #   restart: unless-stopped
-  
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./src:/app/src
-    ports:
-      - 4000:4000
-    depends_on:
-      - postgres
 
-volumes:
-  postgres-data:
+  #   app:
+  #     build:
+  #       context: .
+  #       dockerfile: Dockerfile.dev
+  #     volumes:
+  #       - ./src:/app/src
+  #     ports:
+  #       - 4000:4000
+  #     depends_on:
+  #       - postgres
+
+  # volumes:
+  #   postgres-data:
 

@@ -28,10 +28,10 @@ export class AuthController {
     }
 
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      { id: user.id, email: user.email, name: user.name },
       process.env.JWT_SECRET as string,
       { expiresIn: "10h" }
     );
-    return { id: user.id, email: user.email, token: token };
+    return { id: user.id, email: user.email, name: user.name, token: token };
   }
 }
