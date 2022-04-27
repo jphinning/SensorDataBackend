@@ -17,6 +17,7 @@ registerRouter.post("/", async (req, res) => {
         return res.send(response);
     }
     catch (error) {
+        console.log(error);
         return res.send({ error: error });
     }
 });

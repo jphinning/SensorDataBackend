@@ -20,8 +20,8 @@ class AuthController {
         if (!validPassword) {
             return { message: "Wrong password" };
         }
-        const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "10h" });
-        return { id: user.id, email: user.email, token: token };
+        const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email, name: user.name }, process.env.JWT_SECRET, { expiresIn: "10h" });
+        return { id: user.id, email: user.email, name: user.name, token: token };
     }
 }
 exports.AuthController = AuthController;
