@@ -20,6 +20,7 @@ authRouter.post("/", async (req, res) => {
 
     return res.json(response);
   } catch (error) {
+    console.log(error);
     return res.send({ error: error });
   }
 });
